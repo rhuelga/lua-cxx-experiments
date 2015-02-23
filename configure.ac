@@ -1,0 +1,29 @@
+AC_INIT([testlua], [0.1.0])
+AC_CONFIG_AUX_DIR([.])
+
+AC_CANONICAL_SYSTEM
+AM_INIT_AUTOMAKE()
+
+AC_CONFIG_MACRO_DIR([m4])
+
+AC_PROG_CC
+AC_PROG_CXX
+AC_LANG([C++])
+AX_CXX_COMPILE_STDCXX_11
+
+PKG_PROG_PKG_CONFIG
+
+LIBLUAJIT_REQUIRED=2.0.3
+PKG_CHECK_MODULES([LIBLUAJIT], luajit >= $LIBLUAJIT_REQUIRED)
+
+
+case "${target_os}" in
+darwin*)
+        LIBLUAJIT_LIBS="${LIBLUAJIT_LIBS} -pagezero_size 10000 -image_base 100000000"
+        ;;
+esac
+
+AC_CONFIG_FILES(Makefile
+src/Makefile)
+
+AC_OUTPUT

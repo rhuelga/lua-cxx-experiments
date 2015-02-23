@@ -1,0 +1,9 @@
+* To explore
+** C++ Lua memory management
+
+* To do
+** C++ Testing
+   Using Bandint for testing
+
+* Done
+* Learned

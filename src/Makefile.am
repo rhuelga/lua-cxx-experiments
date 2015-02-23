@@ -1,0 +1,7 @@
+
+bin_PROGRAMS = run
+
+run_SOURCES = run.cxx
+
+run_CXXFLAGS = ${LIBLUAJIT_CFLAGS}
+run_LDFLAGS = ${LIBLUAJIT_LIBS}
