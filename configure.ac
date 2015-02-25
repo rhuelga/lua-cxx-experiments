@@ -49,7 +49,11 @@ else
 fi
 
 
+AC_SUBST([GMOCK_CFLAGS])
+AC_SUBST([GMOCK_LIBS])
+
 AC_CONFIG_FILES(Makefile
-src/Makefile)
+                src/Makefile
+                tests/Makefile)
 
 AC_OUTPUT

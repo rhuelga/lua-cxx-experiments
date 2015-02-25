@@ -14,17 +14,9 @@
 #include <bandit/bandit.h>
 #include <gmock/gmock.h>
 
+#include "mocks/MockA.hh"
+
 using namespace bandit;
-
-
-class MockA {
-public:
-    MOCK_METHOD0(callMe, void());
-    MOCK_METHOD0(die, void());
-
-    ~MockA() { die(); }
-};
-
 
 
 // Tell bandit there are tests here.
@@ -48,6 +40,16 @@ go_bandit([](){
 			EXPECT_CALL(*mocka, die()).Times(1);
 		    });
 	    });
+
+	describe("Call from lua", []() {
+		std::shared_ptr<MockA> mocka;
+
+		before_each([&]() {
+			mocka = std::make_shared<MockA>();
+		    });
+
+	    });
+
     });
 
 int main(int argc, char* argv[]) {
