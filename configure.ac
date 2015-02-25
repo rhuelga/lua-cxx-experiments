@@ -23,6 +23,32 @@ darwin*)
         ;;
 esac
 
+AC_ARG_WITH([bandit],
+        AS_HELP_STRING([--with-bandit=<path>], [Set the path to bandit testing framework.]))
+
+AS_IF([test "x$with_bandit" != x],
+      AC_SUBST([TEST_CFLAGS],[-I$with_bandit]))
+
+AC_DEFUN([AC_KCHECK_HEADERS],
+[
+  oldcppflags="$CPPFLAGS"
+  CPPFLAGS="$CPPFLAGS $2"
+  AC_CHECK_HEADERS($1, $3, $4)
+  CPPFLAGS="$oldcppflags"
+])# AC_KCHECK_HEADERS
+
+AC_KCHECK_HEADERS([bandit/bandit.h], [$TEST_CFLAGS], [], AC_MSG_ERROR([bandit framework was not found use --with-bandit=<path>]))
+
+
+AC_CHECK_PROG(GMOCK_CONFIG, gmock-config, "yes")
+if test x"$GMOCK_CONFIG" = "xyes"; then
+   GMOCK_CFLAGS=`gmock-config --cppflags --cxxflags`
+   GMOCK_LIBS=`gmock-config --ldflags --libs`
+else
+   AC_MSG_ERROR([Needs gmock to test])
+fi
+
+
 AC_CONFIG_FILES(Makefile
 src/Makefile)
 
