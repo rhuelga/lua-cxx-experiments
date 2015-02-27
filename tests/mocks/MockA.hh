@@ -12,10 +12,22 @@
 
 #include <gmock/gmock.h>
 
+#include <iostream>
+
 class MockA {
 public:
-	MOCK_METHOD0(callMe, void());
-	MOCK_METHOD0(die, void());
 
-	~MockA() { die(); }
+	MOCK_METHOD0(callMe, void());
+	MOCK_METHOD0(Die, void());
+
+	MockA() {
+		std::cout << "Created MockA : " << this << std::endl;
+
+		//EXPECT_CALL(*this, Die()).Times(1);
+	}
+	~MockA() {
+		std::cout << "Destroy MockA : " << this << std::endl;
+
+		Die();
+	}
 };
