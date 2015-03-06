@@ -14,20 +14,22 @@
 
 #include <iostream>
 
-class MockA {
+#include "MockA.hh"
+
+class MockB : public MockA {
 public:
 
-	MOCK_METHOD0(callMe, void());
+	MOCK_METHOD0(callMeB, void());
 	MOCK_METHOD0(Die, void());
 
-	MockA() {
-		std::cout << "Created MockA : " << this << std::endl;
+	MockB() {
+		std::cout << "Created MockB : " << this << std::endl;
 
 		//EXPECT_CALL(*this, Die()).Times(1);
 	}
 
-	virtual ~MockA() {
-		std::cout << "Destroy MockA : " << this << std::endl;
+	~MockB() {
+		std::cout << "Destroy MockB : " << this << std::endl;
 
 		Die();
 	}
